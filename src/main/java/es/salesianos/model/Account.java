@@ -2,15 +2,16 @@ package es.salesianos.model;
 
 public class Account {
 
-	private Integer id;
+	private String accountNumber;
 	private Integer balance;
 
-	public Integer getId() {
-		return id;
+
+	public String getAccountNumber() {
+		return accountNumber;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
 	public Integer getBalance() {

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,9 +23,13 @@ public class AccountController {
 	AccountService service;
 
 	@GetMapping("/list")
-	public ResponseEntity<List<Account>> ListAll() {
+	public ResponseEntity<List<Account>> listAll() {
 		return new ResponseEntity<>(service.listAllAccount(), HttpStatus.CREATED);
 	}
 
-	// Modificar saldo: POST
+	@PostMapping("/depositOrWithdraw")
+	public ResponseEntity<Account> depositOrWithdraw(String accountNumber, Integer amount) {
+		service.depositOrWithdraw(accountNumber, amount);
+		return new ResponseEntity<>(account, HttpStatus.CREATED);
+	}
 }
