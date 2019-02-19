@@ -11,7 +11,6 @@ import es.salesianos.model.Account;
 public class AccountRepository {
 	private List<Account> accounts;
 
-
 	public List<Account> getAccounts() {
 		return accounts;
 	}
@@ -24,8 +23,18 @@ public class AccountRepository {
 		Optional<Account> accountToModify = accounts.stream().filter(a -> a.getAccountNumber().equals(accountNumber))
 				.findFirst();
 		Account account = accountToModify.orElse(null);
+		if (account != null)
+			account.setBalance(account.getBalance() + amount);
+		else {
+			addNewAccount(accountNumber, amount);
+		}
+	}
 
-		account.setBalance(account.getBalance() + amount);
+	private void addNewAccount(String accountNumber, Integer amount) {
+		Account newAccount = new Account();
+		newAccount.setAccountNumber(accountNumber);
+		newAccount.setBalance(amount);
+		accounts.add(newAccount);
 	}
 
 }

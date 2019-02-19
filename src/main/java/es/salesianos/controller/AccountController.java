@@ -30,6 +30,6 @@ public class AccountController {
 	@PostMapping("/depositOrWithdraw")
 	public ResponseEntity<Account> depositOrWithdraw(String accountNumber, Integer amount) {
 		service.depositOrWithdraw(accountNumber, amount);
-		return new ResponseEntity<>(account, HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }
