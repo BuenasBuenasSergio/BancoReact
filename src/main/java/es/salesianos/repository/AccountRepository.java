@@ -1,15 +1,16 @@
 package es.salesianos.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import es.salesianos.model.Account;
 
-@Repository
+@Component
 public class AccountRepository {
-	private List<Account> accounts;
+	private List<Account> accounts = new ArrayList<Account>();
 
 	public List<Account> getAccounts() {
 		return accounts;
@@ -19,17 +20,18 @@ public class AccountRepository {
 		this.accounts = accounts;
 	}
 
-	public void depositOrWithdraw(String accountNumber, Integer amount) {
-		Optional<Account> accountToModify = accounts.stream().filter(a -> a.getAccountNumber().equals(accountNumber))
+	public void depositOrWithdraw(Account account) {
+		Optional<Account> accountToModify = accounts.stream().filter(a -> a.getAccountNumber().equals(account.getAccountNumber()))
 				.findFirst();
-		Account account = accountToModify.orElse(null);
-		System.out.println(amount);
-		if (account != null){
-			account.setBalance(account.getBalance() + amount);
+		Account accountModified = accountToModify.orElse(null);
+		if (accountModified != null){
+			accountModified.setBalance(accountModified.getBalance() + account.getBalance());
 		}
 		else {
-			addNewAccount(accountNumber, amount);
-		}
+			accounts.add(account);
+		}	
+		System.out.println(accounts.get(0).getAccountNumber());
+		System.out.println(accounts.get(0).getBalance());
 	}
 
 	private void addNewAccount(String accountNumber, Integer amount) {
