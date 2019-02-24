@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +29,9 @@ public class AccountController {
 	}
 
 	@PostMapping("/depositOrWithdraw")
-	public ResponseEntity<Account> depositOrWithdraw(String accountNumber, Integer amount) {
-		service.depositOrWithdraw(accountNumber, amount);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public ResponseEntity<Account> depositOrWithdraw(@RequestBody Account account) {
+		System.out.println("datos: " + account.getBalance());
+		service.depositOrWithdraw("ES2008", 5000);
+		return new ResponseEntity<Account>(HttpStatus.CREATED);
 	}
 }

@@ -3384,7 +3384,8 @@
 	      }
 	
 	      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-	        if (getPropType(value) === 'symbol') {
+	        var type = getPreciseType(value);
+	        if (type === 'symbol') {
 	          return String(value);
 	        }
 	        return value;
@@ -3562,6 +3563,11 @@
 	      return true;
 	    }
 	
+	    // falsy value can't be a Symbol
+	    if (!propValue) {
+	      return false;
+	    }
+	
 	    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
 	    if (propValue['@@toStringTag'] === 'Symbol') {
 	      return true;
@@ -3662,7 +3668,7 @@
 /* 32 */
 /***/ (function(module, exports) {
 
-	/** @license React v16.8.1
+	/** @license React v16.8.2
 	 * react-is.production.min.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -3683,7 +3689,7 @@
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.8.1
+	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.8.2
 	 * react-is.development.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -24915,7 +24921,7 @@
 	    _this.state = {
 	
 	      accountNumber: "",
-	      amount: ""
+	      balance: ""
 	
 	    };
 	    return _this;
@@ -24925,6 +24931,15 @@
 	    key: "handleChange",
 	    value: function handleChange(event) {
 	      this.setState(_defineProperty({}, event.target.name, event.target.value));
+	    }
+	  }, {
+	    key: "keyPressed",
+	    value: function keyPressed(event) {
+	      if (event.keyCode == 13) {
+	        // If enter is pressed
+	        this.depositOrWithdraw(this.state);
+	        console.log("Success!");
+	      }
 	    }
 	  }, {
 	    key: "depositOrWithdraw",
@@ -24945,17 +24960,19 @@
 	          "div",
 	          null,
 	          _react2.default.createElement("input", { type: "text", className: "form-control",
-	            name: "Account Number",
+	            name: "accountNumber",
 	            placeholder: "Type your account number",
 	            value: this.state.accountNumber,
 	            onChange: this.handleChange.bind(this),
-	            onKeyDown: this.keyPressed.bind(this) }),
+	            onKeyDown: this.keyPressed.bind(this)
+	          }),
 	          _react2.default.createElement("input", { type: "text", className: "form-control",
-	            name: "amount",
+	            name: "balance",
 	            placeholder: "Type the amount...",
-	            value: this.state.amount,
+	            value: this.state.balance,
 	            onChange: this.handleChange.bind(this),
-	            onKeyDown: this.keyPressed.bind(this) })
+	            onKeyDown: this.keyPressed.bind(this)
+	          })
 	        ),
 	        _react2.default.createElement(
 	          "div",

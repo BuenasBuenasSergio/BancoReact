@@ -23,8 +23,10 @@ public class AccountRepository {
 		Optional<Account> accountToModify = accounts.stream().filter(a -> a.getAccountNumber().equals(accountNumber))
 				.findFirst();
 		Account account = accountToModify.orElse(null);
-		if (account != null)
+		System.out.println(amount);
+		if (account != null){
 			account.setBalance(account.getBalance() + amount);
+		}
 		else {
 			addNewAccount(accountNumber, amount);
 		}
