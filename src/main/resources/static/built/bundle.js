@@ -24927,11 +24927,6 @@
 	  }
 	
 	  _createClass(DepositOrWithdrawForm, [{
-	    key: "refreshPage",
-	    value: function refreshPage() {
-	      window.location.reload();
-	    }
-	  }, {
 	    key: "handleChange",
 	    value: function handleChange(event) {
 	      this.setState(_defineProperty({}, event.target.name, event.target.value));
@@ -24985,11 +24980,6 @@
 	            "button",
 	            { className: "btn btn-default", type: "button", onClick: this.depositOrWithdraw.bind(this) },
 	            "Go"
-	          ),
-	          _react2.default.createElement(
-	            "button",
-	            { className: "btn btn-default", type: "button", onClick: this.refreshPage },
-	            "Load List"
 	          )
 	        )
 	      );
@@ -25064,6 +25054,8 @@
 	
 	var _BalanceCount2 = _interopRequireDefault(_BalanceCount);
 	
+	var _accountActions = __webpack_require__(235);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25085,16 +25077,22 @@
 		}
 	
 		_createClass(AccountList, [{
+			key: "fetchAccounts",
+			value: function fetchAccounts() {
+				(0, _accountActions.fetchAccounts)();
+			}
+		}, {
 			key: "render",
 			value: function render() {
-				var _this2 = this;
-	
-				fetch('/api/v1/account/list/').then(function (response) {
-					return response.json();
-				}).then(function (account) {
-					_this2.setState({ accounts: account });
-				});
-	
+				// fetch('/api/v1/account/list/')
+				// 	.then((response) => {
+				// 		return response.json();
+				// 	})
+				// 	.then((account) => {
+				// 		this.setState({ accounts: account })
+				// 	})
+				this.setState({ accounts: this.fetchAccounts });
+				console.log(accounts);
 				if (this.state.accounts.length > 0) {
 	
 					var accountItems = [];

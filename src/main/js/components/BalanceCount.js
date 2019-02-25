@@ -17,9 +17,6 @@ export default class BalanceCount extends React.Component {
                 this.setState({ total: sum })
             })
 
-
-
-
         return (
             <div>
                 <span>Total: {this.state.total}</span>
