@@ -3384,8 +3384,7 @@
 	      }
 	
 	      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-	        var type = getPreciseType(value);
-	        if (type === 'symbol') {
+	        if (getPropType(value) === 'symbol') {
 	          return String(value);
 	        }
 	        return value;
@@ -3563,11 +3562,6 @@
 	      return true;
 	    }
 	
-	    // falsy value can't be a Symbol
-	    if (!propValue) {
-	      return false;
-	    }
-	
 	    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
 	    if (propValue['@@toStringTag'] === 'Symbol') {
 	      return true;
@@ -3668,7 +3662,7 @@
 /* 32 */
 /***/ (function(module, exports) {
 
-	/** @license React v16.8.2
+	/** @license React v16.8.1
 	 * react-is.production.min.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -3689,7 +3683,7 @@
 /* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.8.2
+	/* WEBPACK VAR INJECTION */(function(process) {/** @license React v16.8.1
 	 * react-is.development.js
 	 *
 	 * Copyright (c) Facebook, Inc. and its affiliates.
@@ -24875,7 +24869,8 @@
 	      return _react2.default.createElement(
 	        "div",
 	        { className: "text-center" },
-	        _react2.default.createElement(_DepositOrWithdrawForm2.default, null)
+	        _react2.default.createElement(_DepositOrWithdrawForm2.default, null),
+	        _react2.default.createElement(_AccountList2.default, null)
 	      );
 	    }
 	  }]);
@@ -24932,6 +24927,11 @@
 	  }
 	
 	  _createClass(DepositOrWithdrawForm, [{
+	    key: "refreshPage",
+	    value: function refreshPage() {
+	      window.location.reload();
+	    }
+	  }, {
 	    key: "handleChange",
 	    value: function handleChange(event) {
 	      this.setState(_defineProperty({}, event.target.name, event.target.value));
@@ -24988,8 +24988,8 @@
 	          ),
 	          _react2.default.createElement(
 	            "button",
-	            { className: "btn btn-default", type: "button" },
-	            "List"
+	            { className: "btn btn-default", type: "button", onClick: this.refreshPage },
+	            "Load List"
 	          )
 	        )
 	      );
@@ -25060,6 +25060,10 @@
 	
 	var _AccountItem2 = _interopRequireDefault(_AccountItem);
 	
+	var _BalanceCount = __webpack_require__(238);
+	
+	var _BalanceCount2 = _interopRequireDefault(_BalanceCount);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25067,8 +25071,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// import BalanceCount from "./BalanceCount"
 	
 	var AccountList = function (_React$Component) {
 		_inherits(AccountList, _React$Component);
@@ -25087,13 +25089,11 @@
 			value: function render() {
 				var _this2 = this;
 	
-				if (this.state.accounts.length == 0) {
-					fetch('/api/v1/account/list/').then(function (response) {
-						return response.json();
-					}).then(function (account) {
-						_this2.setState({ accounts: account });
-					});
-				}
+				fetch('/api/v1/account/list/').then(function (response) {
+					return response.json();
+				}).then(function (account) {
+					_this2.setState({ accounts: account });
+				});
 	
 				if (this.state.accounts.length > 0) {
 	
@@ -25105,7 +25105,9 @@
 					return _react2.default.createElement(
 						"div",
 						null,
-						accountItems
+						accountItems,
+						_react2.default.createElement("br", null),
+						_react2.default.createElement(_BalanceCount2.default, null)
 					);
 				} else {
 					return _react2.default.createElement(
@@ -25183,6 +25185,72 @@
 	}(_react2.default.Component);
 	
 	exports.default = accountItem;
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var BalanceCount = function (_React$Component) {
+	    _inherits(BalanceCount, _React$Component);
+	
+	    function BalanceCount(props) {
+	        _classCallCheck(this, BalanceCount);
+	
+	        var _this = _possibleConstructorReturn(this, (BalanceCount.__proto__ || Object.getPrototypeOf(BalanceCount)).call(this, props));
+	
+	        _this.state = { total: 0 };
+	        return _this;
+	    }
+	
+	    _createClass(BalanceCount, [{
+	        key: "render",
+	        value: function render() {
+	            var _this2 = this;
+	
+	            fetch('/api/v1/account/total/').then(function (response) {
+	                return response.json();
+	            }).then(function (sum) {
+	                _this2.setState({ total: sum });
+	            });
+	
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    "span",
+	                    null,
+	                    "Total: ",
+	                    this.state.total
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return BalanceCount;
+	}(_react2.default.Component);
+	
+	exports.default = BalanceCount;
 
 /***/ })
 /******/ ]);

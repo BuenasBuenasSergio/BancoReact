@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.salesianos.model.Account;
@@ -31,9 +30,12 @@ public class AccountController {
 
 	@PostMapping("/depositOrWithdraw")
 	public ResponseEntity<Account> depositOrWithdraw(@RequestBody Account account) {
-		System.out.println("datos: " + account.getBalance());
 		service.depositOrWithdraw(account);
 		return new ResponseEntity<Account>(HttpStatus.CREATED);
 	}
 
+	@GetMapping("/total")
+	public ResponseEntity<Integer> getTotal() {
+		return new ResponseEntity<>(service.getTotalAmount(), HttpStatus.CREATED);
+	}
 }

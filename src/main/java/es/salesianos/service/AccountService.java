@@ -19,8 +19,11 @@ public class AccountService {
 	}
 
 	public void depositOrWithdraw(Account account) {
-		System.out.println("Servicio: " + account.getBalance());
 		repository.depositOrWithdraw(account);
+	}
+
+	public Integer getTotalAmount() {
+		return repository.getTotalAmount();
 	}
 
 }

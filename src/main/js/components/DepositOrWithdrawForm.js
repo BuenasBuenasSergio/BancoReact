@@ -1,7 +1,6 @@
 import React from "react";
 import { depositOrWithdraw } from "../actions/accountActions"
 
-
 export default class DepositOrWithdrawForm extends React.Component {
 
   constructor() {
@@ -24,6 +23,7 @@ export default class DepositOrWithdrawForm extends React.Component {
       console.log("Success!")
     }
   }
+
 
   depositOrWithdraw() {
     depositOrWithdraw(this.state);
@@ -54,7 +54,6 @@ export default class DepositOrWithdrawForm extends React.Component {
         </div>
         <div>
           <button className="btn btn-default" type="button" onClick={this.depositOrWithdraw.bind(this)}>Go</button>
-          <button className="btn btn-default" type="button">List</button>
         </div>
       </div>
     );

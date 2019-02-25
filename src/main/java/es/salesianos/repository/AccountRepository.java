@@ -30,15 +30,16 @@ public class AccountRepository {
 		else {
 			accounts.add(account);
 		}	
-		System.out.println(accounts.get(0).getAccountNumber());
-		System.out.println(accounts.get(0).getBalance());
 	}
 
-	private void addNewAccount(String accountNumber, Integer amount) {
-		Account newAccount = new Account();
-		newAccount.setAccountNumber(accountNumber);
-		newAccount.setBalance(amount);
-		accounts.add(newAccount);
+
+
+	public Integer getTotalAmount() {
+		Integer total = 0;
+		for (Account a : accounts) {
+			total += a.getBalance();
+		}
+		return total;
 	}
 
 }

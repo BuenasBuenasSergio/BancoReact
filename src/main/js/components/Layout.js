@@ -9,6 +9,7 @@ export default class Layout extends React.Component {
     return (
       <div class="text-center">
         <DepositOrWithdrawForm />
+        <AccountList />
       </div>
     )
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import AccountItem from "./AccountItem"
-// import BalanceCount from "./BalanceCount"
+import BalanceCount from "./BalanceCount"
 
 export default class AccountList extends React.Component {
 
@@ -9,40 +9,39 @@ export default class AccountList extends React.Component {
 		this.state = { accounts: [] }
 	}
 
-  render() {
-		if (this.state.accounts.length == 0) {	
-			fetch('/api/v1/account/list/')
+	render() {
+		fetch('/api/v1/account/list/')
 			.then((response) => {
 				return response.json();
-			})			
+			})
 			.then((account) => {
-        		this.setState({ accounts: account })
-      		})
-			
-		}
+				this.setState({ accounts: account })
+			})
+
 
 		if (this.state.accounts.length > 0) {
-		
+
 			var accountItems = [];
 			this.state.accounts.forEach(
 				(cuenta) => {
 					accountItems.push(<AccountItem account={cuenta} />)
 				}
 			)
-		
-		return (
+
+			return (
 				<div>
 					{accountItems}
-					{/* <accountCount  count={accountItems.length}/> */}
-			</div>
+					<br />
+					<BalanceCount />
+				</div>
 			)
-				
-		
+
+
 		} else {
 			return <p className="text-center">Loading accounts...</p>
 		}
 
 
-    
-  }
+
+	}
 }
