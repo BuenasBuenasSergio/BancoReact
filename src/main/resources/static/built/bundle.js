@@ -24845,6 +24845,10 @@
 	
 	var _AccountList2 = _interopRequireDefault(_AccountList);
 	
+	var _BalanceCount = __webpack_require__(237);
+	
+	var _BalanceCount2 = _interopRequireDefault(_BalanceCount);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24870,7 +24874,8 @@
 	        "div",
 	        { className: "text-center" },
 	        _react2.default.createElement(_DepositOrWithdrawForm2.default, null),
-	        _react2.default.createElement(_AccountList2.default, null)
+	        _react2.default.createElement(_AccountList2.default, null),
+	        _react2.default.createElement(_BalanceCount2.default, null)
 	      );
 	    }
 	  }]);
@@ -25054,10 +25059,9 @@
 	
 					return _react2.default.createElement(
 						"div",
-						null,
+						{ className: "text-center" },
 						accountItems,
-						_react2.default.createElement("br", null),
-						_react2.default.createElement(_BalanceCount2.default, null)
+						_react2.default.createElement("br", null)
 					);
 				} else {
 					return _react2.default.createElement(
@@ -25186,7 +25190,7 @@
 	
 	            return _react2.default.createElement(
 	                "div",
-	                null,
+	                { className: "col-md-4 col-md-offset-4" },
 	                _react2.default.createElement(
 	                    "span",
 	                    null,

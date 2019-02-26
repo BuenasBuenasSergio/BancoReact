@@ -18,7 +18,7 @@ export default class BalanceCount extends React.Component {
             })
 
         return (
-            <div>
+            <div class="col-md-4 col-md-offset-4">
                 <span>Total: {this.state.total}</span>
             </div>
         )

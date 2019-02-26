@@ -29,10 +29,9 @@ export default class AccountList extends React.Component {
 			)
 
 			return (
-				<div>
+				<div className="text-center">
 					{accountItems}
 					<br />
-					<BalanceCount />
 				</div>
 			)
 
