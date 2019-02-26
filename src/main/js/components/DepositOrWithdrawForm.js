@@ -1,5 +1,4 @@
 import React from "react";
-import { depositOrWithdraw } from "../actions/accountActions"
 
 export default class DepositOrWithdrawForm extends React.Component {
 
@@ -8,7 +7,7 @@ export default class DepositOrWithdrawForm extends React.Component {
     this.state = {
 
       accountNumber: "",
-      balance: "",
+      amount: "",
 
     }
   }
@@ -26,7 +25,7 @@ export default class DepositOrWithdrawForm extends React.Component {
 
 
   depositOrWithdraw() {
-    depositOrWithdraw(this.state);
+    fetch('/api/v1/account/depositOrWithdraw/?accountNumber='+this.state.accountNumber+'&amount='+this.state.amount)
   }
 
   render() {
@@ -45,9 +44,9 @@ export default class DepositOrWithdrawForm extends React.Component {
             onKeyDown={this.keyPressed.bind(this)} 
             />
           <input type="text" class="form-control"
-            name="balance"
+            name="amount"
             placeholder="Type the amount..."
-            value={this.state.balance}
+            value={this.state.amount}
             onChange={this.handleChange.bind(this)}
             onKeyDown={this.keyPressed.bind(this)} 
             />

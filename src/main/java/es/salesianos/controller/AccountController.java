@@ -7,9 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.salesianos.model.Account;
@@ -28,9 +27,9 @@ public class AccountController {
 		return new ResponseEntity<>(service.listAllAccount(), HttpStatus.CREATED);
 	}
 
-	@PostMapping("/depositOrWithdraw")
-	public ResponseEntity<Account> depositOrWithdraw(@RequestBody Account account) {
-		service.depositOrWithdraw(account);
+	@GetMapping("/depositOrWithdraw")
+	public ResponseEntity<Account> depositOrWithdraw(@RequestParam String accountNumber, @RequestParam Integer amount) {
+		service.depositOrWithdraw(accountNumber, amount);
 		return new ResponseEntity<Account>(HttpStatus.CREATED);
 	}
 

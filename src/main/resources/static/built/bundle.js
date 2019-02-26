@@ -24841,7 +24841,7 @@
 	
 	var _DepositOrWithdrawForm2 = _interopRequireDefault(_DepositOrWithdrawForm);
 	
-	var _AccountList = __webpack_require__(236);
+	var _AccountList = __webpack_require__(235);
 	
 	var _AccountList2 = _interopRequireDefault(_AccountList);
 	
@@ -24897,8 +24897,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _accountActions = __webpack_require__(235);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -24920,7 +24918,7 @@
 	    _this.state = {
 	
 	      accountNumber: "",
-	      balance: ""
+	      amount: ""
 	
 	    };
 	    return _this;
@@ -24943,7 +24941,7 @@
 	  }, {
 	    key: "depositOrWithdraw",
 	    value: function depositOrWithdraw() {
-	      (0, _accountActions.depositOrWithdraw)(this.state);
+	      fetch('/api/v1/account/depositOrWithdraw/?accountNumber=' + this.state.accountNumber + '&amount=' + this.state.amount);
 	    }
 	  }, {
 	    key: "render",
@@ -24966,9 +24964,9 @@
 	            onKeyDown: this.keyPressed.bind(this)
 	          }),
 	          _react2.default.createElement("input", { type: "text", className: "form-control",
-	            name: "balance",
+	            name: "amount",
 	            placeholder: "Type the amount...",
-	            value: this.state.balance,
+	            value: this.state.amount,
 	            onChange: this.handleChange.bind(this),
 	            onKeyDown: this.keyPressed.bind(this)
 	          })
@@ -24993,44 +24991,6 @@
 
 /***/ }),
 /* 235 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.fetchAccounts = fetchAccounts;
-	exports.depositOrWithdraw = depositOrWithdraw;
-	function fetchAccounts() {
-	
-	    fetch('/api/v1/account/list').then(function (response) {
-	        console.log(response.data);
-	        return response.data;
-	    });
-	}
-	
-	function depositOrWithdraw(json) {
-	
-	    var data = new FormData();
-	    data.append("json", JSON.stringify(json));
-	
-	    console.log(json);
-	    fetch('/api/v1/account/depositOrWithdraw', {
-	        method: "POST",
-	        headers: {
-	            'Accept': 'application/json',
-	            'Content-Type': 'application/json'
-	        },
-	        body: JSON.stringify(json)
-	    }).then(function (response) {
-	        console.log(response.data);
-	        return response.data;
-	    });
-	}
-
-/***/ }),
-/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25046,15 +25006,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _AccountItem = __webpack_require__(237);
+	var _AccountItem = __webpack_require__(236);
 	
 	var _AccountItem2 = _interopRequireDefault(_AccountItem);
 	
-	var _BalanceCount = __webpack_require__(238);
+	var _BalanceCount = __webpack_require__(237);
 	
 	var _BalanceCount2 = _interopRequireDefault(_BalanceCount);
-	
-	var _accountActions = __webpack_require__(235);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -25077,22 +25035,16 @@
 		}
 	
 		_createClass(AccountList, [{
-			key: "fetchAccounts",
-			value: function fetchAccounts() {
-				(0, _accountActions.fetchAccounts)();
-			}
-		}, {
 			key: "render",
 			value: function render() {
-				// fetch('/api/v1/account/list/')
-				// 	.then((response) => {
-				// 		return response.json();
-				// 	})
-				// 	.then((account) => {
-				// 		this.setState({ accounts: account })
-				// 	})
-				this.setState({ accounts: this.fetchAccounts });
-				console.log(accounts);
+				var _this2 = this;
+	
+				fetch('/api/v1/account/list/').then(function (response) {
+					return response.json();
+				}).then(function (account) {
+					_this2.setState({ accounts: account });
+				});
+	
 				if (this.state.accounts.length > 0) {
 	
 					var accountItems = [];
@@ -25123,7 +25075,7 @@
 	exports.default = AccountList;
 
 /***/ }),
-/* 237 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -25185,7 +25137,7 @@
 	exports.default = accountItem;
 
 /***/ }),
-/* 238 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";

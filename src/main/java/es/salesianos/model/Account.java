@@ -5,7 +5,6 @@ public class Account {
 	private String accountNumber;
 	private Integer balance;
 
-
 	public String getAccountNumber() {
 		return accountNumber;
 	}

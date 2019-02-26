@@ -20,19 +20,24 @@ public class AccountRepository {
 		this.accounts = accounts;
 	}
 
-	public void depositOrWithdraw(Account account) {
-		Optional<Account> accountToModify = accounts.stream().filter(a -> a.getAccountNumber().equals(account.getAccountNumber()))
+	public void depositOrWithdraw(String accountNumber, Integer amount) {
+		Optional<Account> accountToModify = accounts.stream().filter(a -> a.getAccountNumber().equals(accountNumber))
 				.findFirst();
 		Account accountModified = accountToModify.orElse(null);
 		if (accountModified != null){
-			accountModified.setBalance(accountModified.getBalance() + account.getBalance());
+			accountModified.setBalance(accountModified.getBalance() + amount);
 		}
 		else {
-			accounts.add(account);
+			addNewAccount(accountNumber, amount);
 		}	
 	}
 
-
+	private void addNewAccount(String accountNumber, Integer amount) {
+		Account newAccount = new Account();
+		newAccount.setAccountNumber(accountNumber);
+		newAccount.setBalance(amount);
+		accounts.add(newAccount);
+	}
 
 	public Integer getTotalAmount() {
 		Integer total = 0;

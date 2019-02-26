@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.salesianos.model.Account;
 import es.salesianos.repository.AccountRepository;
@@ -18,8 +19,8 @@ public class AccountService {
 		return repository.getAccounts();
 	}
 
-	public void depositOrWithdraw(Account account) {
-		repository.depositOrWithdraw(account);
+	public void depositOrWithdraw(String accountNumber, @RequestParam Integer amount) {
+		repository.depositOrWithdraw(accountNumber, amount);
 	}
 
 	public Integer getTotalAmount() {
